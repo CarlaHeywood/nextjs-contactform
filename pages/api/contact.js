@@ -3,10 +3,10 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 dotenv.config();
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   // DEBUG
   // res.status(200).json({ message: "Hello from contact.js!" });
-  
+
   if (req.method === "POST") {
     const { name, email, message } = req.body;
 
@@ -78,4 +78,6 @@ export default async (req, res) => {
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }
-};
+}
+
+export default handler;
