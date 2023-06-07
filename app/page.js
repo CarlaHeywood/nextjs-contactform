@@ -1,7 +1,7 @@
-
+// page.js
 import React from "react";
 import RootLayout from "./layout";
-import ContactForm from "./api/ContactForm";
+import ContactForm from "./components/ContactForm";
 
 export default function Home() {
 

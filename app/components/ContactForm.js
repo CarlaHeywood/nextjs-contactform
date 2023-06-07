@@ -1,5 +1,7 @@
-"use client";
+// components/ContactForm.js
+'use client'
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ContactForm = () => {
   const [formState, setFormState] = useState({
@@ -7,6 +9,9 @@ const ContactForm = () => {
     email: "",
     message: "",
   });
+
+  const [isSubmitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
     setFormState({
@@ -29,6 +34,13 @@ const ContactForm = () => {
     const data = await response.json();
 
     console.log(data);
+
+    if (response.ok) {
+      setSubmitted(true);
+      setError(null); // Clear any previous errors
+    } else {
+      setError(data.message || "An error occurred"); // Update error state with error message
+    }
   };
 
   return (
@@ -46,6 +58,10 @@ const ContactForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
               type="text"
+              name="name"
+              required
+              errorBorderColor="red"
+              value={formState.name}
               onChange={handleInputChange}
             />
           </div>
@@ -60,6 +76,10 @@ const ContactForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
               id="grid-last-name"
               type="email"
+              name="email"
+              required
+              errorBorderColor="red"
+              value={formState.email}
               onChange={handleInputChange}
             />
           </div>
@@ -75,10 +95,51 @@ const ContactForm = () => {
             <textarea
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white h-48 resize-none"
               id="message"
+              name="message"
+              required
+              errorBorderColor="red"
+              value={formState.message}
               onChange={handleInputChange}
             ></textarea>
           </div>
         </div>
+
+        {isSubmitted && (
+          <AnimatePresence mode="wait">
+            <motion.div
+              className="bg-green-300 text-green-900 p-5 rounded-lg mb-6 text-center"
+              key="success-alert"
+              initial={{ opacity: 0, scale: 0.5, y: -50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.5, y: -50 }}
+              transition={{
+                duration: 1.5,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+            >
+              Your message was submitted successfully!
+            </motion.div>
+          </AnimatePresence>
+        )}
+        {error && (
+          <AnimatePresence mode="wait">
+            <motion.div
+              className="bg-red-300 text-red-900 p-5 rounded-lg mb-6
+              text-center"
+              key="success-alert"
+              initial={{ opacity: 0, scale: 0.5, y: -50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.5, y: -50 }}
+              transition={{
+                duration: 1.5,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+            >
+              Error: {error}
+            </motion.div>
+          </AnimatePresence>
+        )}
+
         <div className="md:flex md:items-center">
           <div className="w-full flex content-center items-center justify-center">
             <button
