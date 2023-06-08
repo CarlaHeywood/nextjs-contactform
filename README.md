@@ -3,7 +3,7 @@ Serverless Function Contact Form
 
 <a href="https://nextjs-contactform-carla.vercel.app/"><strong>Demo Link</strong></a>
 
-<img src="https://raw.githubusercontent.com/CarlaHeywood/nextjs-contactform/main/Screenshot.png" width="100%">
+<img src="https://raw.githubusercontent.com/CarlaHeywood/nextjs-contactform/main/Screenshot.png?token=GHSAT0AAAAAAB6ZVRRPUNTEAIHXS4OU7V3UZEBDHZQ" width="100%">
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
